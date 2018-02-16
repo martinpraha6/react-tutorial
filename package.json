@@ -1,9 +1,15 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "react-tutorial",
+  "description": "Extended React tutorial",
+  "version": "0.1.1",
+  "repository": "https://github.com/martinpraha6/react-tutorial.git",
   "private": true,
+  "license": "MIT",
   "devDependencies": {
-    "react-scripts": "1.1.0"
+    "flow-bin": "^0.65.0",
+    "intl": "^1.2.5",
+    "react-scripts": "1.1.0",
+    "rimraf": "^2.6.2"
   },
   "dependencies": {
     "react": "^16.2.0",
@@ -11,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deps": "rimraf node_modules yarn.lock && yarn install",
+    "deps": "rimraf node_modules yarn.lock flow-typed/npm && yarn && flow-typed install",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
