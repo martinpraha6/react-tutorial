@@ -2,11 +2,33 @@
 
 import React, { Component } from 'react';
 
+import Button from './Button';
+
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <Button className="square" clickEvent={props.onClick}>
       {props.value}
-    </button>
+      <style jsx global>{`
+        .square {
+          background: #fff;
+          border: 1px solid #999;
+          float: left;
+          font-size: 24px;
+          font-weight: bold;
+          line-height: 34px;
+          height: 34px;
+          margin-right: -1px;
+          margin-top: -1px;
+          padding: 0;
+          text-align: center;
+          width: 34px;
+        }
+
+        .square:focus {
+          outline: none;
+        }
+      `}</style>
+    </Button>
   );
 }
 
@@ -46,6 +68,17 @@ export default class Board extends Component<Props> {
   render() {
     const boardSize: number = 3;
 
-    return <div>{this.renderBoard(boardSize)}</div>;
+    return (
+      <div>
+        {this.renderBoard(boardSize)}
+        <style jsx>{`
+          .board-row:after {
+            clear: both;
+            content: '';
+            display: table;
+          }
+        `}</style>
+      </div>
+    );
   }
 }

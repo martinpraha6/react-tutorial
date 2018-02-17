@@ -1,4 +1,6 @@
-# dependencies
-/node_modules
+.DS_Store
+.next
+build
+node_modules
 
-/build
+yarn-error.log

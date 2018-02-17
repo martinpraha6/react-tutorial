@@ -3,15 +3,18 @@
 import React, { Component } from 'react';
 
 import Board from './Board';
+import Text from './Text';
+import Block from './Block';
+import Button from './Button';
 
 type Props = {};
-type State = {
+type State = {|
   history: Array<{
     squares: Array<string>,
   }>,
   xIsNext: boolean,
   stepNumber: number,
-};
+|};
 
 export default class Game extends Component<Props, State> {
   constructor(props: Props) {
@@ -67,7 +70,9 @@ export default class Game extends Component<Props, State> {
       const desc = move ? 'Go to move #' + move : 'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <Button className="btn-link" clickEvent={() => this.jumpTo(move)}>
+            <Text>{desc}</Text>
+          </Button>
         </li>
       );
     });
@@ -85,9 +90,19 @@ export default class Game extends Component<Props, State> {
           <Board squares={current.squares} onClick={i => this.handleClick(i)} />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <Block>{status}</Block>
           <ol>{moves}</ol>
         </div>
+        <style jsx>{`
+          .game {
+            display: flex;
+            flex-direction: row;
+          }
+
+          .game-info {
+            margin-left: 20px;
+          }
+        `}</style>
       </div>
     );
   }
