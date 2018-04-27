@@ -38,11 +38,11 @@ export default class Button extends Component<Props> {
             display: inline-block;
             margin: 0em;
             font: 400 11px system-ui;
-            text-decoration: underline;
+            text-decoration: none;
           }
 
           .btn-link:hover {
-            text-decoration: none;
+            text-decoration: underline;
           }
         `}</style>
       </button>

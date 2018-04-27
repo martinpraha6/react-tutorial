@@ -11,6 +11,8 @@ type Props = {};
 type State = {|
   history: Array<{
     squares: Array<string>,
+    move: ?number,
+    whoPlayed: string,
   }>,
   xIsNext: boolean,
   stepNumber: number,
@@ -23,6 +25,8 @@ export default class Game extends Component<Props, State> {
       history: [
         {
           squares: Array(9).fill(null),
+          move: null,
+          whoPlayed: '',
         },
       ],
       xIsNext: true,
@@ -46,6 +50,8 @@ export default class Game extends Component<Props, State> {
         history: history.concat([
           {
             squares: squares,
+            move: i,
+            whoPlayed: squares[i],
           },
         ]),
         stepNumber: history.length,
@@ -61,16 +67,34 @@ export default class Game extends Component<Props, State> {
     });
   }
 
+  getCoordinates(move: number): string {
+    if (move > -1) {
+      const x: string = ['A', 'B', 'C'][Math.floor(move % 3)];
+      const y: string = Math.ceil((move + 1) / 3).toString();
+      return '[' + x + ',' + y + ']';
+    }
+    return '';
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner: ?string = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
+    const moves = history.map((step, index) => {
+      const desc =
+        step.move !== null
+          ? step.whoPlayed +
+            ' ' +
+            this.getCoordinates(
+              step.move !== null && typeof step.move !== 'undefined'
+                ? step.move
+                : -1,
+            )
+          : 'Start';
       return (
-        <li key={move}>
-          <Button className="btn-link" clickEvent={() => this.jumpTo(move)}>
+        <li key={index}>
+          <Button className="btn-link" clickEvent={() => this.jumpTo(index)}>
             <Text>{desc}</Text>
           </Button>
         </li>
