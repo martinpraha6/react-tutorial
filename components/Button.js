@@ -2,13 +2,13 @@
 
 import React, { Component } from 'react';
 
-type Props = {|
+type ButtonProps = {|
   children: any,
   clickEvent: any,
   className?: string,
 |};
 
-export default class Button extends Component<Props> {
+export default class Button extends Component<ButtonProps> {
   render() {
     return (
       <button className={this.props.className} onClick={this.props.clickEvent}>
@@ -20,7 +20,7 @@ export default class Button extends Component<Props> {
           }
 
           .btn-link {
-            color: ingherit;
+            color: inherit;
             background-color: none;
             box-sizing: border-box;
             padding: 0em;

@@ -7,8 +7,8 @@ import Text from './Text';
 import Block from './Block';
 import Button from './Button';
 
-type Props = {};
-type State = {|
+type GameProps = {};
+type GameState = {|
   history: Array<{
     squares: Array<string>,
     move: ?number,
@@ -18,9 +18,9 @@ type State = {|
   stepNumber: number,
 |};
 
-export default class Game extends Component<Props, State> {
-  constructor(props: Props) {
-    super((props: Props));
+export default class Game extends Component<GameProps, GameState> {
+  constructor(props: GameProps) {
+    super((props: GameProps));
     this.state = {
       history: [
         {
@@ -111,10 +111,15 @@ export default class Game extends Component<Props, State> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={current.squares} onClick={i => this.handleClick(i)} />
+          <Block>{status}</Block>
+          <Board
+            squares={current.squares}
+            currentMove={current.move}
+            onClick={i => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
-          <Block>{status}</Block>
+          <Block>Moves:</Block>
           <ol>{moves}</ol>
         </div>
         <style jsx>{`
@@ -144,7 +149,7 @@ function calculateWinner(squares): ?string {
     [2, 4, 6],
   ];
 
-  for (let i = 0; i < lines.length; i++) {
+  for (let i: number = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];

@@ -4,24 +4,40 @@ import React, { Component } from 'react';
 
 import Button from './Button';
 
-function Square(props) {
+type SquareProps = {
+  isCurrent: boolean,
+  value: string,
+  onClick: any,
+};
+
+function Square(props: SquareProps) {
+  let classes: Array<string> = ['square'];
+  if (props.isCurrent) {
+    classes.push('current');
+  }
+
   return (
-    <Button className="square" clickEvent={props.onClick}>
+    <Button className={classes.join(' ')} clickEvent={props.onClick}>
       {props.value}
       <style jsx global>{`
         .square {
           background: #fff;
           border: 1px solid #999;
+          color: darkgrey;
           float: left;
-          font-size: 24px;
+          font-size: 32px;
           font-weight: bold;
-          line-height: 34px;
-          height: 34px;
+          line-height: 48px;
+          height: 48px;
           margin-right: -1px;
           margin-top: -1px;
           padding: 0;
           text-align: center;
-          width: 34px;
+          width: 48px;
+        }
+
+        .square.current {
+          color: black;
         }
 
         .square:focus {
@@ -32,16 +48,18 @@ function Square(props) {
   );
 }
 
-type Props = {
+type BoardProps = {
   squares: Array<string>,
+  currentMove: ?number,
   onClick: any,
 };
 
-export default class Board extends Component<Props> {
+export default class Board extends Component<BoardProps> {
   renderSquare(i: number) {
     return (
       <Square
         key={'square' + i}
+        isCurrent={this.props.currentMove === i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
